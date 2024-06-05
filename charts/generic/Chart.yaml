@@ -8,6 +8,5 @@ appVersion: "v0.1"
 dependencies:
   - name: redis
     repository: https://charts.bitnami.com/bitnami
-    version: ">=19, <20"
-    #version: 19.5.0
+    version: ">=19, <20" #19.5.0
     condition: redis.useSubChart

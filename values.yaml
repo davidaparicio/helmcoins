@@ -1,11 +1,14 @@
 redis:
-  image:
-    repository: redis
-    tag: 7.0.15-alpine
-  livenessProbe: null
-  readinessProbe: null
-  service:
-    port: 6379
+  useSubChart: true
+
+# redis:
+#   image:
+#     repository: redis
+#     tag: 7.0.15-alpine
+#   livenessProbe: null
+#   readinessProbe: null
+#   service:
+#     port: 6379
 
 webui:
   service:
