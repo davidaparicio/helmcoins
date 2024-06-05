@@ -1,0 +1,61 @@
+{{- if eq .Chart.Name "redis" }}
+{{ if .Values.redis.useSubChart }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+  name: redis
+spec:
+  type: ExternalName
+  externalName: redis-master.{{ .Release.Namespace }}.svc.cluster.local
+  selector:
+    app: redis
+{{ else }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+  name: redis
+spec:
+  type: ExternalName
+  externalName: redis-master.{{ .Release.Namespace }}.svc.cluster.local
+  selector:
+    app: redis
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app: redis
+#   name: redis
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: redis
+#   template:
+#     metadata:
+#       labels:
+#         app: redis
+#     spec:
+#       containers:
+#       - image: redis
+#         name: redis
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     app: redis
+#   name: redis
+# spec:
+#   ports:
+#   - port: 6379
+#     protocol: TCP
+#     targetPort: 6379
+#   selector:
+#     app: redis
+#   type: ClusterIP
+{{ end }}
+{{- end }}

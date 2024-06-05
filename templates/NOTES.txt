@@ -1,0 +1,3 @@
+{{ if false }}
+DEBUG = {{ (include "generic.name" .) }}
+{{ end }}
