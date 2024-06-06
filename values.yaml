@@ -1,11 +1,23 @@
-# redis:
-#   image:
-#     repository: redis
-#     tag: 7.0.15-alpine
-#   livenessProbe: null
-#   readinessProbe: null
-#   service:
-#     port: 6379
+redis:
+  useInternal: true
+  useExternal: false
+  image:
+    repository: redis
+    tag: 7.0.15-alpine
+  livenessProbe: null
+  readinessProbe: null
+  service:
+    port: 6379
+
+redis-external:
+  fullnameOverride: redis
+  replica:
+    replicaCount: 0
+  master:
+    persistence:
+      enabled: false
+  auth:
+    enabled: false
 
 webui:
   service:
