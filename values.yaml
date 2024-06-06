@@ -1,6 +1,3 @@
-redis:
-  useSubChart: true
-
 # redis:
 #   image:
 #     repository: redis

@@ -12,6 +12,11 @@ dependencies:
   - name: generic
     version: "*"
     alias: redis
+    condition: redis.useSubChart, false
+  - name: redis
+    repository: https://charts.bitnami.com/bitnami
+    version: ">=19, <20" #19.5.0
+    condition: redis.useSubChart
   - name: generic
     version: "*"
     alias: rng
