@@ -12,7 +12,7 @@ spec:
   type: ExternalName
 {{ end }}
 {{ if and .Values.redis.useExternal .Values.redis.useInternal }}
----
+--- # In order to get another separated ressource 
 kind: Error
 apiVersion: "Cannot have both redis.useInternal and redis.useExternal set at the same time!"
 {{ end }}
