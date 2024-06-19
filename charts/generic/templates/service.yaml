@@ -3,35 +3,6 @@
 {{- $targetPort := .Values.service.targetPort | default .Values.service.port -}}
 {{- $port := .Values.service.port -}}
 {{- $namedPort := $port | default $targetPort | toString -}}
-{{/*
-Create the name of the service depending the port //TODO targetPort instead
-https://i.sstatic.net/2bVEz.png
-*/}}
-{{- $portMap := dict
-  80 "http"
-  443 "https"
-  5432 "pg"
-  6379 "redis"
-  3306 "mysql"
-  27017 "mongodb"
-  9042 "cassandra"
-  5672 "rabbitmq"
-  25 "smtp"
-  587 "smtps"
-  21 "ftp"
-  990 "ftps"
-  22 "ssh"
-  53 "dns"
-  389 "ldap"
-  123 "ntp"
-  143 "imap"
-  993 "imaps"
-  110 "pop3"
-  995 "pop3s"
-  8080 "http-alt"
-  8443 "https-alt"
--}}
-{{- $portName := index $portMap $namedPort -}}
 
 apiVersion: v1
 kind: Service
@@ -45,7 +16,7 @@ spec:
     - port: {{ $port }}
       targetPort: {{ $targetPort }}
       protocol: TCP
-      name: {{ $portName }}
+      name: {{ include "portName" $targetPort }}
   selector:
     {{- include "generic.selectorLabels" . | nindent 4 }}
 {{ end }}

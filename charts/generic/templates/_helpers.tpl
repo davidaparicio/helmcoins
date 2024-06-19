@@ -59,3 +59,51 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Generate Random Strings
+Example: random-key: {{ include "randomString" 12 | quote }}
+*/}}
+{{- define "randomString" -}}
+{{- $length := default 8 . -}}
+{{- $chars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" -}}
+{{- $result := "" -}}
+{{- range seq 1 $length -}}
+{{- $index := randInt 0 (len $chars | int) -}}
+{{- $result = printf "%s%s" $result (index $chars $index) -}}
+{{- end -}}
+{{- $result -}}
+{{- end -}}
+
+{{/*
+Create the name of the service depending the port //TODO targetPort instead
+https://i.sstatic.net/2bVEz.png
+*/}}
+{{- define "portName" -}}
+  {{- $namedPort:= . | toString -}}
+  {{- $portMap := dict
+    80 "http"
+    443 "https"
+    5432 "pg"
+    6379 "redis"
+    3306 "mysql"
+    27017 "mongodb"
+    9042 "cassandra"
+    5672 "rabbitmq"
+    25 "smtp"
+    587 "smtps"
+    21 "ftp"
+    990 "ftps"
+    22 "ssh"
+    53 "dns"
+    389 "ldap"
+    123 "ntp"
+    143 "imap"
+    993 "imaps"
+    110 "pop3"
+    995 "pop3s"
+    8080 "http-alt"
+    8443 "https-alt"
+  -}}
+  {{- index $portMap $namedPort | default "unknown" | quote -}}
+{{- end -}}
