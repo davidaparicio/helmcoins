@@ -59,35 +59,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{/*
-Create the name of the service depending the port //TODO targetPort instead
-https://i.sstatic.net/2bVEz.png
-*/}}
-{{- define "portName" -}}
-  {{- $targetPort := int . -}}
-  {{- if eq $targetPort 80 }} http
-  {{- else if eq $targetPort 443 }} https
-  {{- else if eq $targetPort 5432 }} pg
-  {{- else if eq $targetPort 6379 }} redis
-  {{- else if eq $targetPort 3306 }} mysql
-  {{- else if eq $targetPort 27017 }} mongodb
-  {{- else if eq $targetPort 9042 }} cassandra
-  {{- else if eq $targetPort 5672 }} rabbitmq
-  {{- else if eq $targetPort 25 }} smtp
-  {{- else if eq $targetPort 587 }} smtps
-  {{- else if eq $targetPort 21 }} ftp
-  {{- else if eq $targetPort 990 }} ftps
-  {{- else if eq $targetPort 22 }} ssh
-  {{- else if eq $targetPort 53 }} dns
-  {{- else if eq $targetPort 389 }} ldap
-  {{- else if eq $targetPort 123 }} ntp
-  {{- else if eq $targetPort 143 }} imap
-  {{- else if eq $targetPort 993 }} imaps
-  {{- else if eq $targetPort 110 }} pop3
-  {{- else if eq $targetPort 995 }} pop3s
-  {{- else if eq $targetPort 8080 }} http-alt
-  {{- else if eq $targetPort 8443 }} https-alt
-  {{- else }} unknown
-  {{- end -}}
-{{- end -}}
